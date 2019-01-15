@@ -14,8 +14,22 @@ public:
   using reference = T &;
   using const_reference = T const &;
   using size_type = std::size_t;
-  using array_reference = std::valarray<T> &;
-  using const_array_reference = std::valarray<T> const &;
+
+  class ProxyRow {
+  public:
+	  ProxyRow(std::valarray<T>& array, size_type columns, size_type row) :
+		  array(array), columns(columns), row(row) {}
+	  reference operator[](size_type n) {
+		  if (n >= columns)
+			  throw std::invalid_argument("column out of bounds");
+		  return array[row * columns + n];
+	  }
+  private:
+	  std::valarray<T>& array;
+	  size_type columns;
+	  size_type row;
+
+  };
 
   array2d() : columns_{}, storage_{} {}
 
@@ -28,7 +42,11 @@ public:
 
   size_type rows() const {
     // How do we calculate the number of rows since we did not store it?
-    return storage_.size()/columns_;
+	  size_type size = 1;
+	  for (auto i = begin(storage_); i != end(storage_); i++) {
+		  size++;
+	  }
+    return size/columns_;
   }
 
   size_type columns() const { 
@@ -40,41 +58,22 @@ public:
   }
 
   /* Return row `n` from the storage. */
-  std::valarray<T>  operator[](size_type n) {
+  ProxyRow operator[](size_type n) {
     // How do we return a single row? How big is a single row?
     // What should the return type of this member function be?
-	  /*std::valarray<T> toReturn(0, rows());
-	  int current_row{ 0 };
-	  int current_column{ 1 };
-	  for (auto i : storage_) {
-		  if (current_row == n && current_column == 1) {
-			  while (current_column <= columns_) {
-				  toReturn[current_column - 1] = i;
-			  }
-		  }
-		  else if (current_column < columns_) {
-			  current_column++;
-		  }
-		  else if (current_column == columns_) {
-			  current_column = 1;
-		  }
+	  if (n >= rows()) {
+		  throw std::invalid_argument("row out of bounds");
 	  }
-	  return toReturn;*/
-	  std::valarray<T> toReturn(columns());
-	  for (int i{ 0 }; i < columns_; i++) {
-		  toReturn[i]{ (*this)(n, i) };
-	  }
-	  return toReturn;
+	  return ProxyRow(storage_, columns_, n);
   }
 
-  const_array_reference const operator[](size_type n) const {
+  ProxyRow const operator[](size_type n) const {
 	  
     // How do we implement the const version?
-	  std::valarray<T> toReturn(columns());
-	  for (int i{ 0 }; i < columns_; i++) {
-		  toReturn[i] = (*this)(n, i);
+	  if (n >= rows()) {
+		  throw std::invalid_argument("row out of bounds");
 	  }
-	  return toReturn;
+	  return ProxyRow(storage_, columns_, n);
   }
 
   /* Return the element at row and column. These should be equivalent:
@@ -83,23 +82,28 @@ public:
   reference operator()(size_type row, size_type column) {
     // How do we translate row and column (2d) into offset (1d)?
 	  size_type offset{ row * this->columns_ + column };
+	  if (offset >= storage_.size())
+		  throw std::invalid_argument("out of bounds");
     return storage_[offset];
   }
 
   const_reference operator()(size_type row, size_type column) const {
     // How do we implement the const version?
 	  size_type offset{ row * this->columns_ + column };
+	  if (offset >= storage_.size())
+		  throw std::invalid_argument("out of bounds");
     return storage_[offset];
   }
 
   void swap(array2d &other) {
     using std::swap;
 	size_type tempType{ columns_ };
-	other.columns_ = this->columns_;
-	columns_ = tempType;
+	columns_ = other.columns_;
+	other.columns_ = tempType;
 	swap(storage_, other.storage_);
     // How do we swap these?
   }
+
 
 private:
   /* The number of columns per row. */
