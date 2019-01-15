@@ -1,0 +1,5 @@
+if(EXISTS "/home/cameron/home/source/repos/CMakeProject1/test/test/test_array2d_tests-b858cb2.cmake")
+  include("/home/cameron/home/source/repos/CMakeProject1/test/test/test_array2d_tests-b858cb2.cmake")
+else()
+  add_test(test_array2d_NOT_BUILT-b858cb2 test_array2d_NOT_BUILT-b858cb2)
+endif()

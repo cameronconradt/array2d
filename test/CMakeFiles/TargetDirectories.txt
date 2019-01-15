@@ -1,0 +1,16 @@
+/home/cameron/home/source/repos/CMakeProject1/test/CMakeFiles/install/strip.dir
+/home/cameron/home/source/repos/CMakeProject1/test/CMakeFiles/install/local.dir
+/home/cameron/home/source/repos/CMakeProject1/test/CMakeFiles/test.dir
+/home/cameron/home/source/repos/CMakeProject1/test/CMakeFiles/list_install_components.dir
+/home/cameron/home/source/repos/CMakeProject1/test/CMakeFiles/edit_cache.dir
+/home/cameron/home/source/repos/CMakeProject1/test/CMakeFiles/rebuild_cache.dir
+/home/cameron/home/source/repos/CMakeProject1/test/CMakeFiles/install.dir
+/home/cameron/home/source/repos/CMakeProject1/test/test/CMakeFiles/install/strip.dir
+/home/cameron/home/source/repos/CMakeProject1/test/test/CMakeFiles/install.dir
+/home/cameron/home/source/repos/CMakeProject1/test/test/CMakeFiles/test_array2d.dir
+/home/cameron/home/source/repos/CMakeProject1/test/test/CMakeFiles/catch.dir
+/home/cameron/home/source/repos/CMakeProject1/test/test/CMakeFiles/rebuild_cache.dir
+/home/cameron/home/source/repos/CMakeProject1/test/test/CMakeFiles/install/local.dir
+/home/cameron/home/source/repos/CMakeProject1/test/test/CMakeFiles/test.dir
+/home/cameron/home/source/repos/CMakeProject1/test/test/CMakeFiles/list_install_components.dir
+/home/cameron/home/source/repos/CMakeProject1/test/test/CMakeFiles/edit_cache.dir
